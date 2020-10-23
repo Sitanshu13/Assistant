@@ -15,7 +15,7 @@ passdenied = 5
 ctime = datetime.datetime.now()
 time = str(ctime.strftime("%H:%M"))
 
-date = str(ctime.strftime("%m/d/y"))
+date = str(ctime.strftime("%m/%d/%y"))
 
 googlenews.setlang('en')
 googlenews.setperiod('d')
