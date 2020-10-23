@@ -1,134 +1,166 @@
-#pip install pyttsx3
-#pip install wikipedia
-#pip install googlesearch-python
-#pip install GoogleNews
+import pyttsx3
+import wikipedia
+from googlesearch import search
+from GoogleNews import GoogleNews
+import webbrowser
+import datetime
 
-#Enter wiki to access wikipedia
-#Enter google to access google
-#Enter calc to access calculator
-#Enter gnews to access Google News
-#Enter calc to access calculator
-#Enter link to access link_redirector and type in the the name of the website to open the link
-#Enter link to access the date and time
+googlenews = GoogleNews()
 
-import pyttsx3 #importing pyttsx3 
-import wikipedia #importing wikipedia
-from googlesearch import search #importing search from googlesearch
-from GoogleNews import GoogleNews #importing GoogleNews from GoogleNews
-import webbrowser #importing webbrowser (built in)
-import datetime #importing datetime(built in)
-googlenews = GoogleNews() #storing entire GoogleNews module in googlenews variable 
+startingMessage = 'Hello, I am your assistant, What can I do for you: '
+start = False
+Password = '8823'
+passdenied = 5
+ctime = datetime.datetime.now()
+time = str(ctime.strftime("%H:%M"))
 
-googlenews.setlang('en') #(optional)
-googlenews.setperiod('d') #(optional)
-googlenews.setTimeRange('10/06/2020','10/07/2020') #(optional)
-googlenews.setencode('utf-8') #(optional)
+date = str(ctime.strftime("%m/d/y"))
 
-startingMessage = 'Hello, I am your assistant, What can I do for you: ' #Intro message after the password verification
-start = False # This variable is used to start the code after the password verification
-Password = 'Python' #Remember to change the password
+googlenews.setlang('en')
+googlenews.setperiod('d')
+googlenews.setTimeRange(date,date)
+googlenews.setencode('utf-8')
 
-speaker = pyttsx3.init() #speaker initiation
-speaker.say('Please enter the password') #speech of the speaker
+speaker = pyttsx3.init()
+speaker.say('Please enter the password')
 speaker.runAndWait()
 
+def password():
+    speaker = pyttsx3.init()
+    speaker.say('Please type in the password')
+    cPassword = input('Enter Password: ')
+    speaker.runAndWait()
+    if(cPassword == Password):
+        speaker = pyttsx3.init()
+        speaker.say('Access accepted')
+        speaker.runAndWait()
+    else:
+        speaker = pyttsx3.init()
+        speaker.say('Access denied')
+        speaker.runAndWait()
+
 def searcherWiki(wikiSearch):
-    speaker = pyttsx3.init() #speaker initiation
+    speaker = pyttsx3.init()
     print(' ')
     print(wikipedia.summary(questionWiki))
-    speaker.say(wikipedia.summary(questionWiki))#speech of the speaker
+    speaker.say(wikipedia.summary(questionWiki))
     speaker.runAndWait()
 
 def searcherGoogle(googleSearch):
-    speaker = pyttsx3.init() #speaker initiation
+    speaker = pyttsx3.init()
     print(' ')
-    speaker.say('These are the websites that came according to your search')#speech of the speaker
+    speaker.say('These are the websites that came according to your search')
     print(search(questionGoogle))
     speaker.runAndWait()
 
 def calculator(calclator1):
   if(calclator1 == '1'):
-      speaker = pyttsx3.init() #speaker initiation
+      speaker = pyttsx3.init()
       add1 = int(input('Add this: '))
       add2 = int(input('To this: '))
       ans1 = add1 + add2
       print(ans1)
-      speaker.say(ans1)#speech of the speaker
+      speaker.say(ans1)
       speaker.runAndWait()
   elif (calclator1 == '2'):
-      speaker = pyttsx3.init() #speaker initiation
+      speaker = pyttsx3.init()
       sub1 = int(input('Subtract this: '))
       sub2 = int(input('From this: '))
       ans2 = (sub1 - sub2)
       print(ans2)
-      speaker.say(ans2)#speech of the speaker
+      speaker.say(ans2)
       speaker.runAndWait()
   elif (calclator1 == '3'):
-      speaker = pyttsx3.init() #speaker initiation
+      speaker = pyttsx3.init()
       mul1 = int(input('Multiply this: '))
       mul2 = int(input('Into this: '))
       ans3 = mul1 * mul2
       print(ans3)
-      speaker.say(ans3)#speech of the speaker
+      speaker.say(ans3)
       speaker.runAndWait()
   elif (calclator1 == '4'):
-      speaker = pyttsx3.init() #speaker initiation
+      speaker = pyttsx3.init()
       div1 = int(input('Divide this: '))
       div2 = int(input('By this: '))
       ans4 = div1 / div2
       print(ans4)
-      speaker.say(ans4)#speech of the speaker
+      speaker.say(ans4)
       speaker.runAndWait()
 
-speaker = pyttsx3.init() #speaker initiation
+speaker = pyttsx3.init()
 cPassword = input('Enter Password: ')
 speaker.runAndWait()
 if(cPassword == Password):
-    speaker = pyttsx3.init() #speaker initiation
-    speaker.say('Access accepted')#speech of the speaker
+    speaker = pyttsx3.init()
+    speaker.say('Access accepted')
     speaker.runAndWait()
     start = True
     if (start == True):
-        speaker = pyttsx3.init() #speaker initiation
+        speaker = pyttsx3.init()
         print(startingMessage)
         speaker.say(startingMessage)
-        speaker.runAndWait()#speech of the speaker
+        speaker.runAndWait()
         googleOrWiki = input(
             'Do you want to use Google, Wikipedia, Calculator or Google News or do you want to use the link redirector or know the time: ')
         if (googleOrWiki == 'wiki'):
             questionWiki = input('Wikipedia Search: ')
             searcherWiki(questionWiki)
-            speaker = pyttsx3.init() #speaker initiation
+            speaker = pyttsx3.init()
         elif (googleOrWiki == 'google'):
             questionGoogle = input('Google Search: ')
             searcherGoogle(questionGoogle)
-            speaker = pyttsx3.init() #speaker initiation
+            speaker = pyttsx3.init()
         elif (googleOrWiki == 'gnews'):
             googlenews.search('APPL')
             news = googlenews.gettext()
             print(news)
-            speaker = pyttsx3.init() #speaker initiation
-            speaker.say(news)#speech of the speaker
+            speaker = pyttsx3.init()
+            speaker.say(news)
             speaker.runAndWait()
         elif (googleOrWiki == 'link'):
-            speaker = pyttsx3.init() #speaker initiation
-            speaker.say('What website would you like to open? ')
-            linkSearch = input('Website name: ')
-            webbrowser.open('https://' + linkSearch + '.com')
+            speaker = pyttsx3.init()
+            speaker.say("Would you like to go to an .org site or .com site")
+            siteExt = input("Site extention: ")
+            if(siteExt == '.org'):
+                speaker = pyttsx3.init()
+                speaker.say('What website(.org) would you like to open? ')
+                orglinkSearch = input('Website name: ')
+                webbrowser.open('https://' + orglinkSearch + '.org')
+            elif(siteExt == 'org'):
+                speaker = pyttsx3.init()
+                speaker.say('What website(.org) would you like to open? ')
+                orglinkSearch = input('Website name: ')
+                webbrowser.open('https://' + orglinkSearch + '.org')
+            elif (siteExt == '.com'):
+                speaker = pyttsx3.init()
+                speaker.say('What website(.com) would you like to open? ')
+                comlinkSearch = input('Website name: ')
+                webbrowser.open('https://' + comlinkSearch + '.com')
+            elif (siteExt == 'com'):
+                speaker = pyttsx3.init()
+                speaker.say('What website(.com) would you like to open? ')
+                comlinkSearch = input('Website name: ')
+                webbrowser.open('https://' + comlinkSearch + '.com')
         elif (googleOrWiki == 'calc'):
-            speaker = pyttsx3.init() #speaker initiation
+            speaker = pyttsx3.init()
             print(
                 'Which operation would you like to perform, Press 1 to perform addition, 2 to perform subtraction, 3 to perform multiplication and 4 to perform division')
             operation = input('Operation: ')
             calculator(operation)
         elif (googleOrWiki == 'time'):
-            speaker = pyttsx3.init() #speaker initiation
-            ctime = datetime.datetime.now()
-            time = str(ctime.strftime("%d-%m-%y %H:%M"))
+            speaker = pyttsx3.init()
             print(time)
-            speaker.say('The current time is: ' + time)#speech of the speaker
+            speaker.say('The current time is: ' + time)
             speaker.runAndWait()
-else:
-    speaker = pyttsx3.init() #speaker initiation
-    speaker.say('Access denied')#speech of the speaker
+        elif (googleOrWiki == 'date'):
+            speaker = pyttsx3.init()
+            ctime = datetime.datetime.now()
+            date = str(ctime.strftime("%d-%m-%y"))
+            print(date)
+            speaker.say("The today's date is: " + date)
+            speaker.runAndWait()
+elif(cPassword != Password):
+    speaker = pyttsx3.init()
+    speaker.say('Access denied')
     speaker.runAndWait()
+
