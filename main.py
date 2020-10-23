@@ -4,6 +4,7 @@ from googlesearch import search
 from GoogleNews import GoogleNews
 import webbrowser
 import datetime
+import playsound
 
 googlenews = GoogleNews()
 
@@ -31,11 +32,9 @@ def password():
     cPassword = input('Enter Password: ')
     speaker.runAndWait()
     if(cPassword == Password):
-        speaker = pyttsx3.init()
         speaker.say('Access accepted')
         speaker.runAndWait()
     else:
-        speaker = pyttsx3.init()
         speaker.say('Access denied')
         speaker.runAndWait()
 
@@ -87,80 +86,84 @@ def calculator(calclator1):
       speaker.say(ans4)
       speaker.runAndWait()
 
-speaker = pyttsx3.init()
+def song(playSong):
+    speaker = pyttsx3.init()
+
+    if (playSong == 'ws'):
+        speaker.say("playing watermelon sugar")
+        speaker.runAndWait()
+        playsound.playsound("ws.mp3")
+
 cPassword = input('Enter Password: ')
 speaker.runAndWait()
 if(cPassword == Password):
-    speaker = pyttsx3.init()
     speaker.say('Access accepted')
     speaker.runAndWait()
     start = True
     if (start == True):
-        speaker = pyttsx3.init()
         print(startingMessage)
         speaker.say(startingMessage)
         speaker.runAndWait()
-        googleOrWiki = input(
-            'Do you want to use Google, Wikipedia, Calculator or Google News or do you want to use the link redirector or know the time: ')
+        speaker.say('Do you want to use Google, Wikipedia, Calculator or Google News or do you want to use the link redirector or know the time or even listen to a song: ')
+        speaker.runAndWait()
+        googleOrWiki = input('What would you like to use: ')
         if (googleOrWiki == 'wiki'):
             questionWiki = input('Wikipedia Search: ')
             searcherWiki(questionWiki)
-            speaker = pyttsx3.init()
         elif (googleOrWiki == 'google'):
             questionGoogle = input('Google Search: ')
             searcherGoogle(questionGoogle)
-            speaker = pyttsx3.init()
         elif (googleOrWiki == 'gnews'):
             googlenews.search('APPL')
             news = googlenews.gettext()
             print(news)
-            speaker = pyttsx3.init()
             speaker.say(news)
             speaker.runAndWait()
         elif (googleOrWiki == 'link'):
-            speaker = pyttsx3.init()
             speaker.say("Would you like to go to an .org site or .com site")
+            speaker.runAndWait()
             siteExt = input("Site extention: ")
             if(siteExt == '.org'):
-                speaker = pyttsx3.init()
                 speaker.say('What website(.org) would you like to open? ')
+                speaker.runAndWait()
                 orglinkSearch = input('Website name: ')
                 webbrowser.open('https://' + orglinkSearch + '.org')
             elif(siteExt == 'org'):
-                speaker = pyttsx3.init()
                 speaker.say('What website(.org) would you like to open? ')
+                speaker.runAndWait()
                 orglinkSearch = input('Website name: ')
                 webbrowser.open('https://' + orglinkSearch + '.org')
             elif (siteExt == '.com'):
-                speaker = pyttsx3.init()
                 speaker.say('What website(.com) would you like to open? ')
+                speaker.runAndWait()
                 comlinkSearch = input('Website name: ')
                 webbrowser.open('https://' + comlinkSearch + '.com')
             elif (siteExt == 'com'):
-                speaker = pyttsx3.init()
                 speaker.say('What website(.com) would you like to open? ')
+                speaker.runAndWait()
                 comlinkSearch = input('Website name: ')
                 webbrowser.open('https://' + comlinkSearch + '.com')
         elif (googleOrWiki == 'calc'):
-            speaker = pyttsx3.init()
-            print(
-                'Which operation would you like to perform, Press 1 to perform addition, 2 to perform subtraction, 3 to perform multiplication and 4 to perform division')
+            print('Which operation would you like to perform, Press 1 to perform addition, 2 to perform subtraction, 3 to perform multiplication and 4 to perform division')
             operation = input('Operation: ')
             calculator(operation)
         elif (googleOrWiki == 'time'):
-            speaker = pyttsx3.init()
             print(time)
             speaker.say('The current time is: ' + time)
             speaker.runAndWait()
         elif (googleOrWiki == 'date'):
-            speaker = pyttsx3.init()
             ctime = datetime.datetime.now()
             date = str(ctime.strftime("%d-%m-%y"))
             print(date)
             speaker.say("The today's date is: " + date)
             speaker.runAndWait()
+        elif (googleOrWiki == 'song'):
+            speaker = pyttsx3.init()
+            speaker.say("What song would you like to hear to")
+            speaker.runAndWait()
+            songName = input("What song would you like to hear to: ")
+            song(songName)
+
 elif(cPassword != Password):
-    speaker = pyttsx3.init()
     speaker.say('Access denied')
     speaker.runAndWait()
-
