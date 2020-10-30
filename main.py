@@ -15,7 +15,8 @@ passdenied = 5
 ctime = datetime.datetime.now()
 time = str(ctime.strftime("%H:%M"))
 
-date = str(ctime.strftime("%m/%d/%y"))
+tdate = datetime.datetime.now()
+date = str(tdate.strftime("%m/%d/20%y"))
 
 googlenews.setlang('en')
 googlenews.setperiod('d')
@@ -104,7 +105,8 @@ if(cPassword == Password):
         print(startingMessage)
         speaker.say(startingMessage)
         speaker.runAndWait()
-        speaker.say('Do you want to use Google, Wikipedia, Calculator or Google News or do you want to use the link redirector or know the time or even listen to a song: ')
+        speaker.say('Do you want to use Google, Wikipedia, Calculator, Google News, link redirector, do you want to know the time or even listen to a song: ')
+        print('Do you want to use Google, Wikipedia, Calculator, Google News, link redirector, do you want to know the time or even listen to a song: ')
         speaker.runAndWait()
         googleOrWiki = input('What would you like to use: ')
         if (googleOrWiki == 'wiki'):
@@ -152,8 +154,6 @@ if(cPassword == Password):
             speaker.say('The current time is: ' + time)
             speaker.runAndWait()
         elif (googleOrWiki == 'date'):
-            ctime = datetime.datetime.now()
-            date = str(ctime.strftime("%d-%m-%y"))
             print(date)
             speaker.say("The today's date is: " + date)
             speaker.runAndWait()
